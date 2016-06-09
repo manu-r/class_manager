@@ -1,0 +1,60 @@
+{
+  "project_info": {
+    "project_number": "44441322172",
+    "firebase_url": "https://bitsclassmanager.firebaseio.com",
+    "project_id": "bitsclassmanager",
+    "storage_bucket": "bitsclassmanager.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:44441322172:android:1f8339c3af78d83a",
+        "android_client_info": {
+          "package_name": "com.bitspilani.classmanager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "44441322172-ijrm8snhnko3cq736qqjgnpmiigkconr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bitspilani.classmanager",
+            "certificate_hash": "28B46B7B857072BF35E2196AC7553FD42011BAE7"
+          }
+        },
+        {
+          "client_id": "44441322172-e5nnau5p83etb1a9vgs628llnbao8dc8.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "44441322172-cu4gcklhp62rj24nc5l8ujd49lpd3hnp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5X1V_WYEshtz4cG8E4LCIX8nVRGOKpjE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "44441322172-e5nnau5p83etb1a9vgs628llnbao8dc8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
+}

@@ -8,4 +8,8 @@ public interface AppConstants {
     String EMAIL = "email";
     int GOOGLE_SIGNIN = 0;
     String ACCESS_TOKEN = "access_token";
+    String LAST_NAME = "last_name";
+    String FIRST_NAME = "first_name";
+
+    String ID = "id";
 }

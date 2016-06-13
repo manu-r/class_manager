@@ -1,7 +1,7 @@
 package com.bitspilani.classmanager.activity;
 
 import android.app.Activity;
-import android.content.Context;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.bitspilani.classmanager.R;
 import com.bitspilani.classmanager.util.AppConstants;
+import com.bitspilani.classmanager.util.Faculty;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -29,6 +30,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,6 +51,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     GoogleSignInOptions googleSignInOptions;
     FacebookCallback<LoginResult> facebookCallback;
     SharedPreferences userData;
+    ProgressDialog progressDialog;
+    Faculty faculty;
+    FirebaseDatabase firebaseDB;
+    DatabaseReference authIds;
+    int facultyCounter = 0;
 
 
 
@@ -68,8 +79,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             String email;
             if (acct != null) {
                 email = acct.getEmail();
-                saveEmail(email);
-                callHomeActivity(email);
+                String firstName = acct.getDisplayName();
+                faculty = new Faculty(email);
+                faculty.setFirstName(firstName);
+                doLogin(faculty);
             } else {
                 Toast.makeText(getCurrentActivity(), "Cannot retrieve email from Google", Toast.LENGTH_SHORT).show();
             }
@@ -78,23 +91,97 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    private void saveEmail(String email) {
-        userData.edit().putString(AppConstants.EMAIL, email).apply();
-        Log.d(TAG, "Saved email:" +email);
+    private void doLogin(final Faculty faculty) {
+        final String myEmail = faculty.getEmail();
+        firebaseDB = FirebaseDatabase.getInstance();
+        firebaseDB.setPersistenceEnabled(false);
+        firebaseDB.goOnline();
+        authIds = firebaseDB.getReference();
+        authIds.keepSynced(true);
+
+        authIds.child("auth").addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        boolean emailFound = false;
+                        for( DataSnapshot snapshot: dataSnapshot.getChildren() ) {
+                            String email = snapshot.getValue().toString();
+                            Log.d(TAG, "onDataChange: " +email);
+                            String id = snapshot.getKey();
+                            if(email.equals(myEmail)) {
+                                emailFound = true;
+                                SharedPreferences.Editor editor = userData.edit();
+                                editor.putString(AppConstants.EMAIL, myEmail);
+                                editor.putString(AppConstants.ID, id);
+                                editor.putString(AppConstants.FIRST_NAME, faculty.getFirstName());
+                                editor.putString(AppConstants.LAST_NAME, faculty.getLastName());
+                                editor.apply();
+                                Log.d(TAG, "Saved email:" +email);
+                                progressDialog.cancel();
+                                callHomeActivity(email);
+                            }
+                        }
+                        if(!emailFound) {
+                            progressDialog.cancel();
+                            Toast.makeText(getCurrentActivity(), "You are not authorised to login. Contact Admin.", Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                }
+        );/*
+            new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                facultyCounter++;
+                if(facultyCounter  == dataSnapshot.getChildren())
+                String email = dataSnapshot.getValue().toString();
+                String id = dataSnapshot.getKey();
+                if(email.equals(myEmail)) {
+                    SharedPreferences.Editor editor = userData.edit();
+                    editor.putString(AppConstants.EMAIL, myEmail);
+                    editor.putString(AppConstants.ID, id);
+                    editor.putString(AppConstants.FIRST_NAME, faculty.getFirstName());
+                    editor.putString(AppConstants.LAST_NAME, faculty.getLastName());
+                    editor.apply();
+                    Log.d(TAG, "Saved email:" +email);
+                    progressDialog.cancel();
+                    callHomeActivity(email);
+                }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });*/
+
     }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
-
-
-        String email = getSharedPreferences(AppConstants.USER_DATA, Context.MODE_PRIVATE).getString(AppConstants.EMAIL, "");
-        //Check already logged in
-        Log.d(TAG, "Email: " +email);
-        if (!email.isEmpty()) {
-            callHomeActivity(email);
-        }
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setIndeterminate(true);
 
         this.setContentView(R.layout.activity_login);
         initializeSocialObjects();
@@ -122,8 +209,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             public void onCompleted(JSONObject object, GraphResponse response) {
                 try {
                     String email = object.getString(AppConstants.EMAIL);
-                    saveEmail(email);
-                    callHomeActivity(email);
+                    object.getString(AppConstants.FIRST_NAME);
+                    faculty = new Faculty(email);
+                    doLogin(faculty);
                 } catch (JSONException e) {
                     throw new FacebookException("Cannot retrieve email.");
                 }
@@ -189,9 +277,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_facebook_login:
+                progressDialog.show();
                 facebookLogin();
                 break;
             case R.id.btn_google_login:
+                progressDialog.show();
                 googleLogin();
                 break;
         }

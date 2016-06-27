@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/userid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="@dimen/control_vertical_margin_high"
+        android:layout_marginStart="@dimen/control_vertical_margin_high"
+        android:layout_marginTop="@dimen/control_vertical_margin_small"
+        android:text="@string/sample"
+        android:textSize="@dimen/heading3"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/user_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/userid"
+        android:layout_marginBottom="@dimen/control_vertical_margin_small"
+        android:layout_marginEnd="@dimen/control_vertical_margin_high"
+        android:layout_marginRight="@dimen/control_vertical_margin_high"
+        android:layout_marginStart="@dimen/control_vertical_margin_high"
+        android:text="@string/sample_email" />
+
+    <ImageButton
+        android:id="@+id/remove_user"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/control_vertical_margin_high"
+        android:layout_marginRight="@dimen/control_vertical_margin_high"
+        android:background="@null"
+        android:scaleType="fitCenter"
+        android:src="@drawable/delete_button" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_below="@+id/user_email"
+        android:layout_height="1dip"
+        android:background="@color/lightGray" />
+
+</RelativeLayout>

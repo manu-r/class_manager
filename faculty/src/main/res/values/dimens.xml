@@ -1,0 +1,25 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="login_cred_margin_top">100dp</dimen>
+    <dimen name="input_height">75dp</dimen>
+    <dimen name="icon_padding">10dp</dimen>
+    <dimen name="card_padding">20dp</dimen>
+    <dimen name="heading1">21sp</dimen>
+    <dimen name="cardview_header">125dp</dimen>
+    <dimen name="control_vertical_margin_small">10dp</dimen>
+    <dimen name="control_vertical_margin_medium">15dp</dimen>
+    <dimen name="sidebar_item_font">8pt</dimen>
+    <dimen name="sidebar_item_height">35dp</dimen>
+    <dimen name="card_header">100dp</dimen>
+    <dimen name="cardview_header_text">22sp</dimen>
+    <dimen name="sub_section_font">12sp</dimen>
+    <dimen name="heading3">15sp</dimen>
+    <dimen name="value_width">75dp</dimen>
+    <dimen name="control_vertical_margin_high">20dp</dimen>
+    <dimen name="max_loc_width">125dp</dimen>
+    <dimen name="heading2">18sp</dimen>
+    <dimen name="control_vertical_margin_xsmall">0dp</dimen>
+    <dimen name="control_padding_medium">12dp</dimen>
+</resources>

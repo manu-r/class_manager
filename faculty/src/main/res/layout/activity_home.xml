@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+        <include layout="@layout/toolbar"
+            android:id="@+id/toolbar"/>
+<TableLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/control_padding_medium"
+    android:layout_below="@+id/toolbar">
+    <TableRow>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/heading2"
+            android:textStyle="bold"
+            android:layout_marginBottom="@dimen/control_vertical_margin_medium"
+            android:layout_marginTop="@dimen/control_vertical_margin_medium"
+            android:text="@string/update_details" />
+
+    </TableRow>
+    <TableRow>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/control_vertical_margin_medium"
+            android:layout_marginTop="@dimen/control_vertical_margin_medium"
+            android:text="@string/session" />
+    </TableRow>
+
+    <TableRow>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/session_start"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/session_start"
+                android:inputType="text" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/session_end"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/session_end"
+                android:inputType="text" />
+        </android.support.design.widget.TextInputLayout>
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/control_vertical_margin_medium"
+            android:layout_marginTop="@dimen/control_vertical_margin_medium"
+            android:text="@string/pickup" />
+    </TableRow>
+
+    <TableRow>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/cab_pickup_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/location"
+                android:inputType="text" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/cab_pickup_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/time"
+                android:inputType="text" />
+        </android.support.design.widget.TextInputLayout>
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/control_vertical_margin_medium"
+            android:layout_marginTop="@dimen/control_vertical_margin_medium"
+            android:text="@string/return_label" />
+    </TableRow>
+
+    <TableRow>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/cab_drop_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/location"
+                android:inputType="text" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/cab_return_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/time"
+                android:inputType="text" />
+        </android.support.design.widget.TextInputLayout>
+    </TableRow>
+
+    <TableRow
+        android:layout_marginTop="@dimen/control_vertical_margin_high"
+        android:gravity="center_horizontal">
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/submit_request"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/submit" />
+    </TableRow>
+
+</TableLayout>
+</RelativeLayout>
